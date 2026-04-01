@@ -1,0 +1,42 @@
+{% extends 'learnedapp/base.html' %}
+{% block content%}
+    <div class="container-fluid d-flex justify-content-center align-items-center bg-secondary">
+        <div class="card border-0 shadow-lg mt-5">
+            <div class="form_view p-2">
+                <h3 class="text-center text-primary fw-bold">Edit profile</h3>
+                <form method="post">
+                    {% csrf_token %} {{ form.as_p }}
+                    <button type="submit" class="btn btn-lg btn-primary" style="width: 100%;">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<style>
+    
+    
+    .form_view input{
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: solid 2px rgb(29, 29, 113);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.03s ease-in-out;
+    }
+    .form_view input:hover{
+        transform: translateY(-3px);
+        border: solid 3px blue;
+
+    }
+    .form_view input:active{
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        outline: none;
+        border: solid 3px blue;
+    }
+    .form_view label{
+        font-weight: bold;
+        margin-bottom: 6px;
+
+    }
+</style>
+{% endblock %}

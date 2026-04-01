@@ -1,0 +1,22 @@
+{% extends 'learnedapp/base.html' %}
+{% block content %}
+<h2>Chatting with {{ reciever.username }}</h2>
+
+{% for message in messages %}
+    {% if message.sender == request.user %}
+        <p style="text-align:right;">
+            <strong>You:</strong> {{ message.content }}
+        </p>
+    {% else %}
+        <p>
+            <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+        </p>
+    {% endif %}
+{% endfor %}
+
+<form method="post">
+    {%csrf_token%}
+    {{ form.as_p}}
+    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+</form>
+{% endblock %}

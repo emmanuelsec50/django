@@ -1,0 +1,74 @@
+{% extends 'learnedapp/base.html' %}
+{% block content %}
+<div class="row h-100">
+    <div class="col-lg-6 col-sm-12 bg-info">
+        <div class="container-fluid d-flex flex-column">
+            <div class="profile_pic mt-1 shadow-sm  mt-5">
+                <img src="https://images.unsplash.com/photo-1773753356339-ebdf8d4dada6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D" alt="Profile">
+            </div>
+            <div class="text-start w-100">
+        <h4>{{ member.user }}</h4>
+        </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-sm-12 bg-info">
+        <div class="container-fluid d-flex flex-column">
+            <h2 class="mt-1">First Name</h2>
+            <div class="label mt-1">
+                {{ member.first_name }}
+            </div>
+
+        </div>
+        <div class="container-fluid d-flex flex-column">
+            <h2 class="mt-1">Last Name</h2>
+            <div class="label mt-1">
+                {{ member.last_name }}
+            </div>
+
+        </div>
+        <div class="container-fluid d-flex flex-column">
+            <h2 class="mt-1">Email Address</h2>
+            <div class="label mt-1">
+                {{ member.email }}
+            </div>
+
+        </div>
+        <div class="container-fluid d-flex flex-column">
+            <h2 class="mt-1">Biography</h2>
+            <div class="label mt-1">
+                {{ member.bio }}
+            </div>
+
+        </div>
+        <a href="{% url 'update_profile'%}" class="btn btn-lg btn-primary mt-1 mx-4" style="width: 90%;">Edit Profile</a>
+
+
+    </div>
+</div>
+<style>
+    .profile_pic{
+        
+        border-radius: 50%;
+        object-fit: cover;
+        border: solid 2px blue;
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+
+        
+
+    }
+    .label{
+        border: solid 2px black;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+
+    }
+</style>
+
+
+
+
+{% endblock %}

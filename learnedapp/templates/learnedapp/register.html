@@ -1,0 +1,71 @@
+{% extends 'learnedapp/base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;"> 
+    <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%; border-radius: 1.5rem;">    
+        
+        <div class="card-header bg-white border-0 pt-5">
+            <h1 class="display-4 text-center text-primary fw-bold">Vixon</h1>
+            <p class="lead text-center text-secondary">Create your account</p>
+        </div>
+
+        <div class="card-body px-5 pb-5">
+            <form method="post" novalidate>
+                {% csrf_token %} 
+                
+                <div class="vixon-form-inputs">
+                    {{ form.as_p }}
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg shadow-lg" style="border-radius: 10px;">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-4">
+                <small class="text-muted">Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling the default Django p tags and inputs */
+    .vixon-form-inputs p {
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+    
+    .vixon-form-inputs input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .vixon-form-inputs input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        outline: none;
+    }
+
+    /* Styling those ugly error lists Django produces */
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+    
+    .helptext {
+        font-size: 0.75rem;
+        color: #6c757d;
+        display: block;
+        margin-top: 4px;
+    }
+</style>
+{% endblock %}

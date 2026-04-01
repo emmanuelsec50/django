@@ -1,0 +1,57 @@
+{% extends 'learnedapp/base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="card shadow-lg border-0" style="width: 100%; max-width: 450px; border-radius: 20px; overflow: hidden;">
+        
+        <div style="height: 10px; background: linear-gradient(90deg, #28a745, #218838);"></div>
+        
+        <div class="card-body p-5">
+            <h1 class="fw-bold text-center mb-1">Vixon</h1>
+            <p class="text-muted text-center mb-4">Welcome back! Login to your account</p>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class="vixon-form">
+                    {{ form.as_p }}
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 py-2 mt-3 fw-bold shadow-sm" style="border-radius: 10px; transition: 0.3s;">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="small text-muted">Don't have an account? 
+                    <a href="{% url 'register' %}" class="text-success fw-bold text-decoration-none">Create one</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .vixon-form p {
+        margin-bottom: 1.5rem;
+    }
+    .vixon-form input {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .vixon-form input:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.1);
+        outline: none;
+    }
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+</style>
+{% endblock %}
