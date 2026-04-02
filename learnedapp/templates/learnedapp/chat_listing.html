@@ -1,0 +1,26 @@
+{% extends 'learnedapp/base.html' %}
+{% block content %}
+<h2 class="text-center">Your chats</h2>
+
+{% if conversations %}
+    <ul>
+        {% for user, message in conversations %}
+        <a href="{% url 'chat' user.username %}" class="text-decoration-none">
+            <li>{{user.username}}</li>
+            
+            {% if message.sender == request.user %}
+            <li>You: {{message.content|truncatechars:15}}</li>
+            <li>{{message.timestamp|timesince}} ago</li>
+            {% else %}
+            <li>{{message.content|truncatechars:15}}</li>
+            <li>{{message.timestamp|timesince}} ago</li>
+            {% endif %}
+        </a>
+        <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+<h2>No messages yet</h2>
+{% endif %}
+
+{% endblock %}

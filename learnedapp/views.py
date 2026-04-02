@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import UpdateMemberForm, MessageForm
 from .models import Members, Messages
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # Create your views here.
 def register(request):
@@ -45,7 +46,10 @@ def profile(request):
 
 @login_required
 def chat(request, username):
-    reciever = User.objects.get(username=username)
+    if request.user.username == username:
+        return redirect('profile')
+    reciever = get_object_or_404(User, username=username) #User.objects.get(username=username)
+    
 
     messages = Messages.objects.filter(
         sender__in = [request.user, reciever],
@@ -53,6 +57,7 @@ def chat(request, username):
     ).order_by('timestamp')
 
     if request.method == 'POST':
+
         form = MessageForm(request.POST)
         if form.is_valid():
             msg = form.save(commit=False)
@@ -65,3 +70,19 @@ def chat(request, username):
     context = {'messages': messages, 'form': form, 'reciever': reciever}
     return render(request, 'learnedapp/chat.html', context)
 
+@login_required
+def chat_list(request):
+    user = request.user
+
+    messages = Messages.objects.filter(Q(sender=user) | Q(reciever=user)).order_by('-timestamp')
+    conversations = {}
+    for message in messages:
+        if message.sender == request.user:
+            other_user = message.reciever
+        else:
+            other_user = message.sender
+
+        if other_user not in conversations:
+            conversations[other_user] = message
+
+    return render(request, 'learnedapp/chat_listing.html', {'conversations': conversations.items()})

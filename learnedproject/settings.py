@@ -124,3 +124,7 @@ STATICFILES_DIRS = [
 ]
 LOGIN_REDIRECT_URL = 'home'  # Go to homepage after login
 LOGOUT_REDIRECT_URL = 'login' # Go to login page after logout
+
+# import os
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+# MEDIA_URL = '/media/'
