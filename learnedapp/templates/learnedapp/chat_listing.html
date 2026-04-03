@@ -4,16 +4,19 @@
 
 {% if conversations %}
     <ul>
-        {% for user, message in conversations %}
+        {% for user, data in conversations %}
         <a href="{% url 'chat' user.username %}" class="text-decoration-none">
             <li>{{user.username}}</li>
             
-            {% if message.sender == request.user %}
-            <li>You: {{message.content|truncatechars:15}}</li>
-            <li>{{message.timestamp|timesince}} ago</li>
+            {% if data.message.sender == request.user %}
+            <li>You: {{data.message.content|truncatechars:15}}</li>
+            <li>{{data.message.timestamp|timesince}} ago</li>
             {% else %}
-            <li>{{message.content|truncatechars:15}}</li>
-            <li>{{message.timestamp|timesince}} ago</li>
+            <li>{{data.message.content|truncatechars:15}}</li>
+            <li>{{data.message.timestamp|timesince}} ago</li>
+            {% endif %}
+            {% if data.unread_messages > 0 %}
+            <small class="text-success">({{data.unread_messages}}) new</small>
             {% endif %}
         </a>
         <hr>

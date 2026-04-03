@@ -56,6 +56,12 @@ def chat(request, username):
         reciever__in = [request.user, reciever]
     ).order_by('timestamp')
 
+    Messages.objects.filter(
+        sender = reciever,
+        reciever = request.user,
+        is_read = False
+    ).update(is_read=True)
+
     if request.method == 'POST':
 
         form = MessageForm(request.POST)
@@ -82,7 +88,18 @@ def chat_list(request):
         else:
             other_user = message.sender
 
+        unread_messages = Messages.objects.filter(
+            sender = other_user,
+            reciever = user,
+            is_read = False
+        ).count()
+
+
+
         if other_user not in conversations:
-            conversations[other_user] = message
+            conversations[other_user] = {
+                'message': message,
+                'unread_messages': unread_messages
+            }
 
     return render(request, 'learnedapp/chat_listing.html', {'conversations': conversations.items()})
