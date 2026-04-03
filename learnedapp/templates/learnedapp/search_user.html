@@ -1,0 +1,23 @@
+
+<form method="GET">
+    <input type="text" value="{{query}}" placeholder="Search users..." name="q">
+    <button type="submit">search</button>
+</form>
+<ul>
+{% if users %}
+{% for user in users %}
+    
+        <li>
+            <a href="{% url 'chat' user.username %}">
+                {{user.username}}
+            </a>
+        </li>
+{% endfor %}
+{% endif %}
+{% if query and not users %}
+<li>User not found</li>
+{% endif %}
+{% if not query %}
+<li>Search for users</li>
+{% endif %}
+</ul>

@@ -103,3 +103,16 @@ def chat_list(request):
             }
 
     return render(request, 'learnedapp/chat_listing.html', {'conversations': conversations.items()})
+
+@login_required
+def search_user(request):
+    query = request.GET.get('q')
+    users = []
+    if query:
+        users = User.objects.filter(Q(username__icontains = query)).exclude(username = request.user.username)
+
+    context = {
+        'query': query,
+        'users': users
+    }
+    return render(request, 'learnedapp/search_user.html', context)

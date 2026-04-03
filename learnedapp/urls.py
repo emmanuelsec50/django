@@ -11,6 +11,7 @@ urlpatterns = [
     path('edit_profile/', views.updatemember, name='update_profile'),
     path('profile/', views.profile, name='profile'),
     path('chat/<str:username>', views.chat, name='chat'),
-    path('chats/', views.chat_list, name='chat_list')
+    path('chats/', views.chat_list, name='chat_list'),
+    path('search/', views.search_user, name='search_user')
     
 ]
